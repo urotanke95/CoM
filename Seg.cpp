@@ -219,22 +219,23 @@ void computeKinematicCoM(std::vector<pcl::PointXYZ> OPP, std::string filename,
         kineCoM[1] += eachKineCoM[i].y * percentage;
         kineCoM[2] += eachKineCoM[i].z * percentage;
     }
-
+    /**
     std::ofstream wfile;
     wfile.open(filename, std::ios::app);
     if (!wfile) {
         std::cout << "cannnot open csv" << std::endl;
         exit(1);
     } else {
-        // wfile << kineCoM[0] * 10.0 << "," << kineCoM[1] * 10.0 << "," <<
-        // 255.0
-        //      << "," << 0 << "," << 255.0 << std::endl;
+         wfile << kineCoM[0] * 10.0 << "," << kineCoM[1] * 10.0 << "," <<
+         255.0
+              << "," << 0 << "," << 255.0 << std::endl;
         std::cout << "CoM write" << std::endl;
         wfile << kineCoM[0] << "," << kineCoM[1] << "," << kineCoM[2]
               << std::endl;
         for (int i = 0; i < 3; i++)
             onlyOP[i] = kineCoM[i] * 10.0;
     }
+     */
 }
 
 void computeCoM(std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> segmentCloud,
@@ -321,21 +322,22 @@ void computeCoM(std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> segmentCloud,
             }
         }
     }
-
+    /**
     std::ofstream wfile;
     wfile.open(filename, std::ios::app);
     if (!wfile) {
         std::cout << "cannnot open csv" << std::endl;
         exit(1);
     } else {
-        wfile << noweightCoM[0] * 10.0 << "," << noweightCoM[1] * 10.0 << ","
-              << 0 << "," << 0 << "," << 255.0 << std::endl;
-        wfile << CoM[0] * 10.0 << "," << CoM[1] * 10.0 << "," << 0 << ","
-              << 255.0 << "," << 255.0 << std::endl;
+    //    wfile << noweightCoM[0] * 10.0 << "," << noweightCoM[1] * 10.0 << ","
+    //         << 0 << "," << 0 << "," << 255.0 << std::endl;
+    //    wfile << CoM[0] * 10.0 << "," << CoM[1] * 10.0 << "," << 0 << ","
+    //          << 255.0 << "," << 255.0 << std::endl;
         for (int i = 0; i < 3; i++)
             beforeWeight[i] = noweightCoM[i];
     }
     // visualizeSegment(segmentCloud, CoM);
+    */
 }
 
 void split(std::string input, char delimiter, std::vector<std::string>* result)
@@ -627,7 +629,7 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> Seg::weighting(
     segmentCloud.push_back(tempCloud6);
     segmentCloud.push_back(tempCloud7);
     segmentCloud.push_back(tempCloud8);
-    std::string segpcd = "/home/kino/Documents/Kaichisan0517/segmentation-synclo/eval/" + category + "/" + subname + "_" + std::to_string(frame) + ".pcd";
+    std::string segpcd = "/home/kino/Documents/Kaichisan0517/segmentation-synclo/eval/" + category + "/" + subname + "_" + std::to_string(frame) + "_seg.pcd";
     pcl::PointCloud<pcl::PointXYZRGB> seg;
     pcl::PointCloud<pcl::PointXYZRGB> tempCloud0_;
     pcl::PointCloud<pcl::PointXYZRGB> tempCloud1_;
@@ -687,11 +689,11 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> Seg::weighting(
     }
 
     std::string filename = "/home/kino/Documents/Kaichisan0517/segmentation-synclo/eval/" + category + "/" + subname + "_" + std::to_string(frame) + "_gnu.csv";
-    std::ofstream wfile;
-    wfile.open(filename, std::ios::out);
-    wfile << eachAllPoints[0] * 10.0 / VHsize << ","
-          << eachAllPoints[1] * 10.0 / VHsize << "," << 0 << "," << 255.0 << ","
-          << 0 << std::endl;
+    //std::ofstream wfile;
+    //wfile.open(filename, std::ios::out);
+    //wfile << eachAllPoints[0] * 10.0 / VHsize << ","
+    //      << eachAllPoints[1] * 10.0 / VHsize << "," << 0 << "," << 255.0 << ","
+    //      << 0 << std::endl;
     for (int i = 0; i < 3; i++)
         onlyVH[i] = eachAllPoints[i] * 10.0 / VHsize;
 
@@ -699,8 +701,8 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> Seg::weighting(
     computeKinematicCoM(OPP, filename, onlyOP);
     computeCoM(segmentCloud, tempcom, tempKine, filename);
     for (int i = 0; i < 3; i++) {
-        CoM[i] = tempcom[i] * 10.0;
-        beforeWeight[i] = tempKine[i] * 10.0;
+        CoM[i] = tempcom[i];// * 10.0;
+        beforeWeight[i] = tempKine[i];// * 10.0;
     }
 
     return segmentCloud;

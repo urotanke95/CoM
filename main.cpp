@@ -21,8 +21,10 @@ int main() {
     //which frame?
     int frame = 3;
 
+    //
+
     //Define the filename of point cloud to save
-    std::string filename = "/home/kino/Documents/Kaichisan0517/result_" + subname + "_" + category + "_" + std::to_string(frame) + ".pcd";
+    std::string filename = "/home/kino/Documents/Kaichisan0517/segmentation-synclo/eval/" + category + "/" + subname + "_" + std::to_string(frame) + ".pcd";
 
     int usedCam[4];
 
