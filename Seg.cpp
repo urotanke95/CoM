@@ -336,7 +336,6 @@ void computeCoM(std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> segmentCloud,
         for (int i = 0; i < 3; i++)
             beforeWeight[i] = noweightCoM[i];
     }
-    // visualizeSegment(segmentCloud, CoM);
     */
 }
 
@@ -649,6 +648,7 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> Seg::weighting(
     pcl::copyPointCloud(*tempCloud6, tempCloud6_);
     pcl::copyPointCloud(*tempCloud7, tempCloud7_);
     pcl::copyPointCloud(*tempCloud8, tempCloud8_);
+
     for (int i = 0; i < tempCloud0_.size(); i++) {
         tempCloud0_[i].r = 255; tempCloud0_[i].b = 0; tempCloud0_[i].g = 0; tempCloud0_[i].a = 0;
     }
@@ -676,6 +676,7 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> Seg::weighting(
     for (int i = 0; i < tempCloud8_.size(); i++) {
         tempCloud8_[i].r = 50; tempCloud8_[i].b = 50; tempCloud8_[i].g = 50; tempCloud8_[i].a = 0;
     }
+
     seg = tempCloud0_;
     seg += tempCloud1_ + tempCloud2_;
     seg += tempCloud3_+ tempCloud4_;
