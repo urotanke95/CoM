@@ -1,7 +1,21 @@
 #include "VisualHull.h"
 #include "Seg.h"
 
+//視点の数
 const int USED_CAMERANUM = 4;
+
+/**
+ * 必要なファイル
+ * cameraMat カメラパラ＝3×3のcsv
+ * disCo 歪み係数=1×5のcsv
+ * rvec 回転ベクトル=3×1のcsv
+ * tvec 移動ベクトル=3×1のcsv
+ * csvfile 推定重心位置xyzの記録したいファイル名
+ * filename visualhullのファイル名点群
+ *
+ * VisualHull.cpp, Seg.cppにも数カ所パスがハードコードされてるのでそのへんはうまいこと変えてくださいｗ
+ * ファイル構造は "保存したいディレクトリ"/densepose　の下に点群と重心位置記録が保存される
+ */
 
 int main() {
     cv::Mat cameraMat[USED_CAMERANUM];
@@ -13,16 +27,18 @@ int main() {
     Seg seg;
 
     //segmentation or densepose
-    std::vector<std::string> subname = {"segmentation", "densepose"};
+    std::vector<std::string> subname = {"densepose"};
 
     //Either of fi, fo, ki, ko
     std::vector<std::string> category = {"fi", "fo", "ki", "ko"};
 
     //How many frames in the category?
     int frame = 48;
+    int i = 44, k = 1, l = 0;
+
 
     for (int k = 0; k < subname.size(); k++) {
-        for (int l = 0; l < category.size(); l++) {
+       for (int l = 0; l < category.size(); l++) {
 
             std::cout << subname.at(k) << ", " << category.at(l) << std::endl;
             std::string csvfile =

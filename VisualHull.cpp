@@ -15,11 +15,17 @@ const int DIVIDE = 150;
 
 const int USED_CAMERANUM = 4;
 
+
+/**
+ * Visual Hull点群の生成
+ * @param voxel ボクセルの集合
+ * @return visuHull Constructed visual hull
+ */
 pcl::PointCloud<pcl::PointXYZ>::Ptr VisualHull::visualizeVH(bool *voxel)
 {
     pcl::PointCloud<pcl::PointXYZ>::Ptr visualHull(new pcl::PointCloud<pcl::PointXYZ>);
     for (int i = 0; i < (int)pow(DIVIDE,3 ); i++) {
-        if (voxel[i]) {
+        if (voxel[i] >= 2) {
             pcl::PointXYZ point;
             point.z = (i / (int) pow(DIVIDE, 2)) * (BOX_Z / DIVIDE) + ORI_Z;
             point.y = ((i % (int) pow(DIVIDE, 2)) / DIVIDE) * (BOX_Y / DIVIDE) + ORI_Y;
@@ -32,11 +38,20 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr VisualHull::visualizeVH(bool *voxel)
     return visualHull;
 }
 
+/**
+ * マスク画像を見て，ボクセル空間中の各ボクセルについてが領域内に入っていなければ削る
+ * @param img 画像
+ * @param cameraMat カメラパラメータ
+ * @param disCo 歪みパラメータ
+ * @param rvec 回転ベクトル
+ * @param tvec 移動ベクトル
+ * @param voxel ボクセルの集合
+ */
 void VisualHull::cutVoxel(const cv::Mat &img, const cv::Mat &cameraMat, const cv::Mat &disCo,
               const cv::Mat &rvec, const cv::Mat &tvec, bool *voxel)
 {
     for (int i = 0; i < (int)pow(DIVIDE, 3); i++) {
-        if (!voxel[i]) {
+        if (voxel[i] == 0) {
             continue;
         } else {
             double z = (i / (int)pow(DIVIDE, 2)) * (BOX_Z / DIVIDE) + ORI_Z;
@@ -62,6 +77,7 @@ void VisualHull::cutVoxel(const cv::Mat &img, const cv::Mat &cameraMat, const cv
     //	cv::waitKey(0);
     //	std::cout << "pvmat" << pvmat << std::endl;
 }
+
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr VisualHull::visuHull(cv::Mat cameraMat[], cv::Mat disCo[], cv::Mat rvec[],
                                              cv::Mat tvec[], int USED_CAMERA[], std::string SUBNAME, std::string category, int frame)

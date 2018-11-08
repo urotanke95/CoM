@@ -621,6 +621,7 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> Seg::weighting(
     }
     segmentCloud.push_back(tempCloud0);
     segmentCloud.push_back(tempCloud1);
+
     segmentCloud.push_back(tempCloud2);
     segmentCloud.push_back(tempCloud3);
     segmentCloud.push_back(tempCloud4);
