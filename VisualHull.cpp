@@ -25,7 +25,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr VisualHull::visualizeVH(bool *voxel)
 {
     pcl::PointCloud<pcl::PointXYZ>::Ptr visualHull(new pcl::PointCloud<pcl::PointXYZ>);
     for (int i = 0; i < (int)pow(DIVIDE,3 ); i++) {
-        if (voxel[i] >= 2) {
+        if (voxel[i]) {
             pcl::PointXYZ point;
             point.z = (i / (int) pow(DIVIDE, 2)) * (BOX_Z / DIVIDE) + ORI_Z;
             point.y = ((i % (int) pow(DIVIDE, 2)) / DIVIDE) * (BOX_Y / DIVIDE) + ORI_Y;
