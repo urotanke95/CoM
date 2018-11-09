@@ -36,7 +36,7 @@ int main() {
 
     //How many frames in the category?
     int frame = 48;
-    int i = 44, k = 1, l = 0;
+    //int i = 44, k = 1, l = 0;
 
 
     for (int k = 0; k < subname.size(); k++) {
