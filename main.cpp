@@ -13,6 +13,8 @@ const int USED_CAMERANUM = 4;
  * csvfile 推定重心位置xyzの記録したいファイル名
  * filename visualhullのファイル名点群
  *
+ * あとopenposeのキーポイント座標が必要
+ *
  * VisualHull.cpp, Seg.cppにも数カ所パスがハードコードされてるのでそのへんはうまいこと変えてくださいｗ
  * ファイル構造は "保存したいディレクトリ"/densepose　の下に点群と重心位置記録が保存される
  */
